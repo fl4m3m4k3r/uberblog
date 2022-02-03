@@ -37,15 +37,32 @@
 
   <body style="background-color: #ede1ce;">
     <header class="h-20 w-full mb-4" style="background-color: #53354A;">
-      <div class="mx-auto flex items-center h-full" style="max-width: 1080px;">
+      <div class="mx-auto flex items-center justify-betwen h-full" style="max-width: 1080px;">
         <div>
           <p class="py-3 px-3 bg-black rounded-xl text-xl font-semibold" style="color: aliceblue;"><%= link_to 'Uberblog', root_path %></p>
         </div>
+
+        <p class="navbar-text float-right">
+          <% if user_signed_in? %>
+            Logged in as <strong><%= current_user.email %></strong>.
+            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+            <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+          <% end %>
+        </p>
       </div>
       <div>
       </div>
     </header>
     <div class="mx-auto" style="max-width: 1080px;">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
       <%= yield %>
     </div>
   </body>
