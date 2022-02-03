@@ -2,24 +2,24 @@
 
 <h1>Posts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="mb-10">
+  <%= link_to 'New Post', new_post_path, class: 'button' %>
+</div>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div>
+  <div>
+    <% @posts.includes(:user).each do |post| %>
+      <div class="flex flex-col gap-1.5 border-b-4 py-2 px-6 border-l-2 border-r-2 border-t-2 mb-4 bg-white border-black">
+        <div>
+          <h2><%= link_to post.title, post %></h2>
+          <h3><%= post.user.email %></h3>
+        </div>
+        <div class="flex gap-3">
+          <div><%= link_to 'Show', post, class: 'button' %></div>
+          <div><%= link_to 'Edit', edit_post_path(post), class: 'button' %></div>
+          <div><%= link_to 'Destroy', post, class: 'button', method: :delete, data: { confirm: 'Are you sure?' } %></div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+  </div>
+</div>

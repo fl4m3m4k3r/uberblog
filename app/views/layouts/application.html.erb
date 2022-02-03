@@ -9,24 +9,40 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
   <style>
-    a {
+    .button {
       color: darkred;
       padding: 5px;
       background: #9c9c9c;
       border-radius: 4px;
       display: inline-block;
     }
+
+    h1 {
+      font-size: 48px;
+    }
+    h2 {
+      font-size: 32px;
+    }
   </style>
 
-  <body>
-    <header class="bg-gray-400 h-20 w-full">
+  <!-- 
+    #6a6a6a gray
+    #53354A purply
+    aliceblue
+   -->
+
+  <body style="background-color: #ede1ce;">
+    <header class="h-20 w-full mb-4" style="background-color: #53354A;">
       <div class="mx-auto flex items-center h-full" style="max-width: 1080px;">
         <div>
-          <p><%= link_to 'Uberblog', root_path %></p>
+          <p class="py-3 px-3 bg-black rounded-xl text-xl font-semibold" style="color: aliceblue;"><%= link_to 'Uberblog', root_path %></p>
         </div>
+      </div>
+      <div>
       </div>
     </header>
     <div class="mx-auto" style="max-width: 1080px;">
