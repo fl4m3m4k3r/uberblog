@@ -14,6 +14,18 @@
           <h2><%= link_to post.title, post %></h2>
           <h3><%= post.user.name %></h3>
         </div>
+        <div class="">
+          <div class="flex items-center"><%= post.likes.count %> likes</div>
+          <div>
+            <% like = current_user.likes.find_by(post: post) %>
+      
+            <% if like.nil? %>
+              <%= button_to "Like", likes_path, params: {like: {post_id: post.id}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
+            <% else %>
+              <%= button_to "Like", like_path(like), method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
+            <% end %>
+          </div>
+        </div>
         <div class="flex gap-3">
           <div><%= link_to 'Show', post, class: 'button' %></div>
           <div><%= link_to 'Edit', edit_post_path(post), class: 'button' %></div>
