@@ -6,13 +6,16 @@
   </div>
   <div class="">
     <div class="flex items-center"><%= post.likes.count %> likes</div>
+    <div class="flex items-center"><%= post.comments.count %> comments</div>
     <div>
-      <% like = current_user.likes.find_by(post: post) %>
+      <% if current_user %>
+        <% like = current_user.likes.find_by(post: post) %>
 
-      <% if like.nil? %>
-        <%= button_to "Like", likes_path, params: {like: {post_id: post.id}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
-      <% else %>
-        <%= button_to "Like", like_path(like), method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
+        <% if like.nil? %>
+          <%= button_to "Like", likes_path, params: {like: {post_id: post.id}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
+        <% else %>
+          <%= button_to "Like", like_path(like), method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -21,6 +24,6 @@
       <div><%= link_to 'Show', post, class: 'button' %></div>
       <div><%= link_to 'Edit', edit_post_path(post), class: 'button' %></div>
       <div><%= link_to 'Destroy', post, class: 'button', method: :delete, data: { confirm: 'Are you sure?' } %></div>
-    </div>
+    </div>  
   <% end %>
 </div>

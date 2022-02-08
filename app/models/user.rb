@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts
-  has_many :comments, through: :post
+  # has_many :comments, through: :post
+  has_many :comments
   has_many :likes
 
   validates :name, presence: true

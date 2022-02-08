@@ -1,0 +1,14 @@
+<div class="comment flex flex-col border-b-4 py-2 px-6 border-l-2 border-r-2 border-t-2 bg-white border-black border-b-gray">
+  <div>
+    <h2><%= link_to comment.user.name, comment.user %></h2>
+    <h3><%= comment.created_at %></h3>
+    <p><%= comment.body %></p>
+  </div>
+  <div class="">
+    
+  </div>
+  <% if comment.user == current_user %>
+    <div class="flex gap-3 border-t-2 pt-2 pl-2">
+    </div>
+  <% end %>
+</div>

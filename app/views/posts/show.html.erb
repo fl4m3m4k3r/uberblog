@@ -1,6 +1,14 @@
-<p id="notice"><%= notice %></p>
+<h1>Post</h1>
 
 <%= render partial: "post", locals: {post: @post} %>
+
+<div>
+  <p>Leave your comment:</p>
+  <%= render partial: "./comments/form", locals: {post: @post} %>
+  <% @post.comments.each do |comment| %>
+    <%= render partial: "./comments/comment", locals: {comment: comment} %>
+  <% end %>
+</div>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

@@ -3,7 +3,16 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    return @posts = Post.all.includes(:user, :likes, :comments).order("created_at DESC") unless params[:post] && params[:post][:order]
+
+    case params["post"]["order"]
+    when 'created_at, descending' then @posts = Post.all.includes(:user, :likes, :comments).order("created_at DESC")
+    when 'created_at, ascending' then @posts = Post.all.includes(:user, :likes, :comments).order("created_at ASC")
+    when 'likes, descending' then @posts = Post.all.includes(:user, :likes, :comments).sort_by { |post| -post.likes.count }
+    when 'likes, ascending' then @posts = Post.all.includes(:user, :likes, :comments).sort_by { |post| post.likes.count }
+    when 'comments, descending' then @posts = Post.all.includes(:user, :likes, :comments).sort_by { |post| -post.comments.count }
+    when 'comments, ascending' then @posts = Post.all.includes(:user, :likes, :comments).sort_by { |post| post.comments.count }
+    end
   end
 
   # GET /posts/1
@@ -22,6 +31,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
 
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
@@ -53,6 +63,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.fetch(:post, {})
+      params.require(:post).permit(:user_id, :title, :body)
     end
 end

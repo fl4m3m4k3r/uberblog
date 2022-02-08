@@ -11,7 +11,18 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title, autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :body %><br>
+    <%= form.text_area :body, class: 'w-1/2 h-40' %>
+  </div>
+
+  <div class="my-4 text-2xl cursor-pointer">
+    <%= form.submit 'Submit', class: 'button' %>
   </div>
 <% end %>
+

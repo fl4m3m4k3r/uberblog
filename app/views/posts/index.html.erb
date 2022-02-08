@@ -1,14 +1,39 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Posts</h1>
 
 <div class="mb-10">
   <%= link_to 'New Post', new_post_path, class: 'button' %>
 </div>
 
+<form>
+  <label>way of sort: </label>
+
+
+  <select name="post[order]">
+    <label>Your order</label>
+      <option>created_at, descending</option>
+      <option>created_at, ascending</option>
+      <option>likes, descending</option>
+      <option>likes, ascending</option>
+  </select>
+
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input class="" type="submit" value="Submit">
+</form>
+
+<!-- <form action="<%= posts_path %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="w-1/2 flex flex-col mb-5">
+    <textarea class="h-24" name="comment[body]" rows="6" cols="20"></textarea>
+
+    <input class="" type="submit" value="Submit">
+  </div>  
+</form> -->
+
 <div>
   <div>
-    <% @posts.includes(:user).each do |post| %>
+    <% @posts.each do |post| %>
       <%= render partial: "post", locals: {post: post} %>
     <% end %>
   </div>
