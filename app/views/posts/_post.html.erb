@@ -1,20 +1,22 @@
 <div class="flex flex-col gap-1.5 border-b-4 py-2 px-6 border-l-2 border-r-2 border-t-2 mb-4 bg-white border-black">
   <div>
     <h2><%= link_to post.title, post %></h2>
-    <h3><%= post.user.name %></h3>
+    <h3 class="text-pink-800 text-xl"><%= link_to post.user.name, post.user %></h3>
     <p><%= post.body %></p>
   </div>
-  <div class="">
-    <div class="flex items-center"><%= post.likes.count %> likes</div>
-    <div class="flex items-center"><%= post.comments.count %> comments</div>
+  <div class="pt-10">
+    <div class="flex gap-3">
+      <div class="flex items-center"><%= post.likes.count %> likes</div>
+      <div class="flex items-center"><%= post.comments.count %> comments</div>
+    </div>
     <div>
       <% if current_user %>
         <% like = current_user.likes.find_by(post: post) %>
 
         <% if like.nil? %>
-          <%= button_to "Like", likes_path, params: {like: {post_id: post.id}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
+          <%= button_to "Like", likes_path, params: {like: {post_id: post.id, url_from: request.path}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
         <% else %>
-          <%= button_to "Like", like_path(like), method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
+          <%= button_to "Like", like_path(like), params: {like: {url_from: request.path}}, method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
         <% end %>
       <% end %>
     </div>

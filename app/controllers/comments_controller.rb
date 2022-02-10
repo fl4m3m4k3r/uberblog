@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy, :edit, :update]
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
@@ -10,7 +11,6 @@ class CommentsController < ApplicationController
     redirect_to post_path(params[:post_id])
   end
 
-  # DELETE /comments/1
   def destroy
     post_id = @comment.post.id
     @comment.destroy
@@ -38,6 +38,6 @@ class CommentsController < ApplicationController
     end
 
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = current_user.comments.find(params[:id])
     end
 end

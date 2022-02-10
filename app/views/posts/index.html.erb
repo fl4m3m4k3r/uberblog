@@ -5,8 +5,8 @@
   <%= link_to 'New Post', new_post_path, class: 'button' %>
 </div>
 
-<form>
-  <label>way of sort: </label>
+<form class="mb-5 flex gap-3">
+  <label>sort by:</label>
 
 
   <select name="post[order]">
@@ -19,7 +19,7 @@
 
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-  <input class="" type="submit" value="Submit">
+  <input class="p-3" type="submit" value="Submit">
 </form>
 
 <div>
