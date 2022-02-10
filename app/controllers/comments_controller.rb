@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:edit, :update, :destroy]
+
   def create
     @comment = current_user.comments.new(comment_params)
     if !@comment.save
@@ -10,8 +12,21 @@ class CommentsController < ApplicationController
 
   # DELETE /comments/1
   def destroy
+    post_id = @comment.post.id
     @comment.destroy
-    redirect_to comments_url, notice: 'Comment was successfully destroyed.'
+    redirect_to post_path(post_id), notice: 'Comment was successfully destroyed.'
+  end
+
+  def edit
+    render partial: 'comments/form', locals: {comment: @comment, post: @comment.post}
+  end
+
+  def update
+    if @comment.update(comment_params)
+      redirect_to post_path(params[:post_id]), notice: 'Post was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   private
@@ -20,5 +35,9 @@ class CommentsController < ApplicationController
       .require(:comment)
       .permit(:body)
       .merge(post_id: params[:post_id])
+    end
+
+    def set_comment
+      @comment = Comment.find(params[:id])
     end
 end

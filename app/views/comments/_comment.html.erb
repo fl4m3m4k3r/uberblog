@@ -9,6 +9,8 @@
   </div>
   <% if comment.user == current_user %>
     <div class="flex gap-3 border-t-2 pt-2 pl-2">
+      <div><%= link_to 'Edit', edit_comment_path(comment), class: 'button' %></div>
+      <div><%= link_to 'Destroy', comment_path(comment), class: 'button', method: :delete, data: { confirm: 'Are you sure?' } %></div>
     </div>
   <% end %>
 </div>
