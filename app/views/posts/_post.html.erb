@@ -13,9 +13,9 @@
       <% like = post.likes.first { |like| like.user_id == current_user.id } %>
 
       <% if like.nil? %>
-        <%= button_to "Like", likes_path, params: {like: {post_id: post.id, url_from: request.path}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
+        <%= button_to "Like", likes_path, params: {like: {post_id: post.id}}, method: :post, class: 'px-2 py-1.5 rounded-xl cursor-pointer' %>
       <% else %>
-        <%= button_to "Like", like_path(like), params: {url_from: request.path}, method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
+        <%= button_to "Like", like_path(like), method: :delete, class: 'px-2 py-1.5 rounded-xl bg-pink-800 text-white cursor-pointer' %>
       <% end %>
     </div>
   </div>

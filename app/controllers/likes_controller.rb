@@ -6,23 +6,13 @@ class LikesController < ApplicationController
       flash[:notice] = @like.errors.full_messages.to_sentence
     end
 
-    if params[:like][:url_from][-1].match?(/\d/)
-      redirect_to post_path(@like.post) 
-    else 
-      redirect_to posts_path
-    end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    @like = Like.find(params[:id])
-    post_id = @like.post.id
-    @like.destroy
+    Like.find(params[:id]).destroy
 
-    if params[:like][:url_from][-1].match?(/\d/)
-      redirect_to post_path(post_id) 
-    else 
-      redirect_to posts_path
-    end
+    redirect_back(fallback_location: root_path)
   end
 
   private
