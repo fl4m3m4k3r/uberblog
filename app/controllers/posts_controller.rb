@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    return @posts = Post.all.includes(:user, :likes, :comments).order("created_at DESC") unless params[:post] && params[:post][:order]
+    return @posts = Post.ordered unless params[:post] && params[:post][:order]
 
     case params["post"]["order"]
     when 'created_at, descending' then @posts = Post.all.includes(:user, :likes, :comments).order("created_at DESC")
