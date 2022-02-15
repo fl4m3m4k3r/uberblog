@@ -4,8 +4,16 @@
 
 <div>
   <p>Leave your comment:</p>
-  <%= render partial: "./comments/form", locals: {post: @post} %>
-  <% @post.comments.each do |comment| %>
-    <%= render partial: "./comments/comment", locals: {comment: comment} %>
+  <%= render partial: "./comments/form", locals: {post: @post, parent: nil} %>
+  <% @post.comments.where(parent_id: nil).order(id: :desc).each do |comment| %>
+    <%= render partial: "./comments/comment", locals: {comment: comment, parent: nil} %>
   <% end %>
 </div>
+
+<script>
+  document.querySelectorAll('.reply-block').forEach((el) => {
+    el.querySelector('.reply-button').addEventListener('click', (ev) => {
+      el.querySelector('.reply-textarea').classList.toggle('hidden');
+    })
+  })
+</script>

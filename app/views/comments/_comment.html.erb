@@ -4,13 +4,23 @@
     <h3><%= comment.created_at %></h3>
     <p><%= comment.body %></p>
   </div>
-  <div class="">
-    
+
+  <div class="reply-block">
+    <p class="reply-button text-red-900 text-2xl mt-8 cursor-pointer underline">REPLY</p>
+    <div class="reply-textarea hidden">
+      <%= render partial: "./comments/form", locals: {post: @post, parent: comment} %>
+    </div>
   </div>
+
   <% if comment.user == current_user %>
     <div class="flex gap-3 border-t-2 pt-2 pl-2">
       <div><%= link_to 'Edit', edit_comment_path(comment), class: 'button' %></div>
       <div><%= link_to 'Destroy', comment_path(comment), class: 'button', method: :delete, data: { confirm: 'Are you sure?' } %></div>
     </div>
+  <% end %>
+</div>
+<div class="pl-4">
+  <% comment.comments.each do |comment| %>
+    <%= render partial: "./comments/comment", locals: {comment: comment, parent: comment} %>
   <% end %>
 </div>

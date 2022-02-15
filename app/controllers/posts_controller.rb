@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes(:user, :likes, :comments).find(params[:id])
   end
 
   # GET /posts/new
